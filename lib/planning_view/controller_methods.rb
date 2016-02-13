@@ -2,7 +2,7 @@ module PlanningView
 
   module Controller
 
-    def self.test
+    def self.haha
       pp 'ok'
 
     end
