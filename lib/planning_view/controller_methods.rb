@@ -1,5 +1,7 @@
 module PlanningView
-  module Controller < ActionController::Base
+
+  module Controller
+
     def self.included(base)
       base.extend ClassMethods
       #base.class_eval do
@@ -59,4 +61,15 @@ module PlanningView
       end
     end
   end
+
+  class Railtie < Rails::Railtie
+    initializer "planning_gem.action_controller" do
+      ActiveSupport.on_load(:action_controller) do
+        puts "Extending #{self} with YourGemsModuleName::Controller"
+        # ActionController::Base gets a method that allows controllers to include the new behavior
+        include PlanningView::Controller # ActiveSupport::Concern
+      end
+    end
+  end
+
 end
