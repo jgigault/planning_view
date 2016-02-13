@@ -4,7 +4,6 @@ module PlanningView
 
     def self.included(base)
       base.send :extend, ClassMethods
-      qSQsqSQs
     end
 
     module ClassMethods
