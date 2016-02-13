@@ -1,6 +1,7 @@
 module PlanningView
 
   module Controller
+    extend ActiveSupport::Concern
 
     def self.included(base)
       base.send :extend, ClassMethods
