@@ -2,12 +2,12 @@ module PlanningView
 
   module Controller
 
-    #def self.included(base)
-    #  base.send :extend, ClassMethods
-    #end
+    def self.included(base)
+      base.send :extend, ClassMethods
+    end
 
-    #module ClassMethods
-      def self.build_planning_view_variables(today: Date.today, start_date:, end_date:, padding_time: 10, default_zoom: 12, group_by: :none, timeslots:, expandable: false, highlight_name: nil, data_attributes: {})
+    module ClassMethods
+      def build_planning_view_variables(today: Date.today, start_date:, end_date:, padding_time: 10, default_zoom: 12, group_by: :none, timeslots:, expandable: false, highlight_name: nil, data_attributes: {})
         @planning_view_today = today
         @planning_view_group_by = group_by.to_sym
         @planning_view_timeslots = timeslots
@@ -56,7 +56,7 @@ module PlanningView
           3  => (100.0 / 3.5 * nb_of_years * 12).to_i
         }
       end
-    #end
+    end
   end
 
 end
