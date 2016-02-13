@@ -2,6 +2,10 @@ module PlanningView
 
   module Controller
 
+    def self.test
+      pp 'ok'
+    end
+
     def self.included(base)
       base.send :extend, ClassMethods
     end
