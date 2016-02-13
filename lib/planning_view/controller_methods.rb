@@ -3,7 +3,7 @@ module PlanningView
   module Controller
 
     def self.included(base)
-      base.extend ClassMethods
+      base.send :extend, ClassMethods
       #base.class_eval do
       #  scope :disabled, -> { where(disabled: true) }
       #end
@@ -58,14 +58,6 @@ module PlanningView
           6  => (100.0 / 7   * nb_of_years * 12).to_i,
           3  => (100.0 / 3.5 * nb_of_years * 12).to_i
         }
-      end
-    end
-  end
-
-  class Railtie < Rails::Railtie
-    initializer "planning_gem.action_controller" do
-      ActiveSupport.on_load(:action_controller) do
-        include PlanningView::Controller
       end
     end
   end
