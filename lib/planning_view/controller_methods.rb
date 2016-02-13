@@ -4,6 +4,7 @@ module PlanningView
 
     def self.test
       pp 'ok'
+
     end
 
     def self.included(base)
