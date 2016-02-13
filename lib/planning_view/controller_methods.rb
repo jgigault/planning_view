@@ -1,5 +1,5 @@
 module PlanningView
-  module Controller
+  module Controller < ActionController::Base
     def self.included(base)
       base.extend ClassMethods
       #base.class_eval do
