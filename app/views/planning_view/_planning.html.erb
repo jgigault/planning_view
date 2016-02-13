@@ -1,0 +1,150 @@
+<div class="pa-planning--container">
+  <div class="pa-planning--header">
+    <div class="pa-planning--row-container">
+
+      <div class="pa-planning--row-wrapper">
+        <div class="pa-planning--header--month pa-planning--header--month-highlight" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>"></div>
+
+        <% @planning_months.each do |month| %>
+          <div class="pa-planning--header--month" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>">
+            <span><%= month[:name].html_safe %></span>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pa-planning--shadow pa-planning--shadow-left"></div>
+      <div class="pa-planning--shadow pa-planning--shadow-right"></div>
+    </div>
+
+
+    <div class="pa-planning--header--control pa-planning--header--control-right">
+      <a class="btn btn-default pa-planning--ctrl-move-right"><i class="icon-forward"></i></a>
+    </div>
+
+    <div class="pa-planning--header--control pa-planning--header--control-left">
+      <a class="btn btn-default pa-planning--ctrl-move-left"><i class="icon-backward"></i></a>
+    </div>
+
+    <div class="pa-planning--header--control pa-planning--header--control-zoom">
+      <%= t('shared.planning.displayed_period') %>
+      <div class="dropdown">
+        <a data-target="#" href="#" data-toggle="dropdown" class="dropdown-toggle"><span><%= @planning_default_zoom %> <%= t('concepts.months') %></span> <b class="caret"></b></a>
+        <ul class="dropdown-menu scrollable-list">
+          <% @planning_available_zoom.each do |nb_of_months, percent| %>
+            <li<%= ' class="active"'.html_safe if @planning_default_zoom == nb_of_months %>>
+              <a href="#" class="pa-planning--ctrl-move-zoom" data-nb-of-months="<%= nb_of_months %>" data-zoom="<%= percent %>"><%= nb_of_months %> <%= t('concepts.months') %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pa-planning--body">
+
+    <div class="pa-planning--row-container">
+      <div class="pa-planning--row-wrapper pa-planning--row-wrapper-vertical-bar">
+        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>"></div>
+        <% if @planning_highlight_name %>
+          <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight-name" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>">
+            <span><%= @planning_highlight_name %></span>
+          </div>
+        <% end %>
+
+        <% @planning_months.each do |month| %>
+          <div class="pa-planning--vertical-bar pa-planning--vertical-bar-<%= month[:date].month == 1 ? "year" : "month" %>" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>"></div>
+        <% end %>
+
+        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-today" style="<%= "left: #{@planning_today_x}%;" %>">
+          <span><%= t('concepts.today') %></span>
+        </div>
+      </div>
+
+      <div class="pa-planning--shadow pa-planning--shadow-left"></div>
+      <div class="pa-planning--shadow pa-planning--shadow-right"></div>
+    </div>
+    <div>
+
+      <%
+         if @collection.size > 0
+           prev_group_by_id = nil
+
+           @collection.each do |row|
+
+             if @planning_group_by != :none && prev_group_by_id != row.send(@planning_group_by).id
+      %>
+            <div class="pa-planning--row pa-planning--row-head">
+              <%= row.send(@planning_group_by) %>
+            </div>
+          <%
+             end
+          %>
+
+          <%= content_tag :div, class: "pa-planning--row #{'pa-planning--row-expandable' if @planning_expandable}", data: @planning_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
+
+            <div class="pa-planning--row-container">
+              <div class="pa-planning--row-wrapper">
+                <%
+                   prev_timeslot_start_date = nil
+                   prev_timeslot_end_date = nil
+                   @planning_timeslots.each_with_index do |timeslot, timeslot_index|
+                     timeslot_start_date = row.send(timeslot[:start_attribute])
+                     timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_end_date
+
+                     if prev_timeslot_start_date != timeslot_start_date || prev_timeslot_end_date != timeslot_end_date
+                       timeslot_nb_of_days = (timeslot_end_date - timeslot_start_date + 1).to_i
+
+                       timeslot_x = ((timeslot_start_date - @planning_start_date + 1) * 100 / @planning_nb_of_days).to_f
+                       timeslot_width = (timeslot_nb_of_days * 100 / @planning_nb_of_days).to_f
+                %>
+                    <div class="<%= "pa-planning--row--timeslot #{'unlimited' unless row.send(timeslot[:end_attribute])} #{row.planning_timeslot_class} #{"light" if timeslot_index > 0}" %>" style="<%= "left: #{timeslot_x}%; width: #{timeslot_width}%;" %>">
+                      <% if timeslot[:milestones_method] %>
+                        <div class="pa-planning--row--milestones">
+                          <%
+                             overlays_count = 0
+                             prev_milestone = nil
+                             row.send(timeslot[:milestones_method]).each do |m|
+                               if m[:date]
+                                 if prev_milestone && m[:date] == prev_milestone[:date]
+                                   overlays_count += 1
+                                 else
+                                   overlays_count = 0
+                                 end
+                                 m_x = ((m[:date] - timeslot_start_date) * 100 / timeslot_nb_of_days).to_f
+                          %>
+                              <div class="pa-planning--row--milestones-item" style="<%= "left: #{m_x}%;#{"margin-top: #{overlays_count * 2}px;margin-left: #{overlays_count * 2}px;z-index: #{200 + overlays_count};" if overlays_count > 0}" %>">
+                                <%= m[:html_content].html_safe %>
+                              </div>
+                            <%
+                               prev_milestone = m
+                               end
+                               end
+                            %>
+                        </div>
+                      <% end %>
+                    </div>
+                  <%
+                     end
+
+                     prev_timeslot_start_date = timeslot_start_date
+                     prev_timeslot_end_date = timeslot_end_date
+                     end
+                  %>
+              </div>
+            </div>
+
+            <%= render partial: 'planning_view_row', locals: {row: row} %>
+
+          <% end %>
+
+        <%
+           prev_group_by_id = row.send(@planning_group_by).id if @planning_group_by != :none && prev_group_by_id != row.send(@planning_group_by).id
+           end
+           end
+        %>
+
+    </div>
+
+  </div>
+
+</div>
