@@ -3,9 +3,9 @@
     <div class="pa-planning--row-container">
 
       <div class="pa-planning--row-wrapper">
-        <div class="pa-planning--header--month pa-planning--header--month-highlight" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>"></div>
+        <div class="pa-planning--header--month pa-planning--header--month-highlight" style="<%= "left: #{@planning_view_highlight_x}%; width: #{@planning_view_highlight_width}%;" %>"></div>
 
-        <% @planning_months.each do |month| %>
+        <% @planning_view_months.each do |month| %>
           <div class="pa-planning--header--month" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>">
             <span><%= month[:name].html_safe %></span>
           </div>
@@ -28,10 +28,10 @@
     <div class="pa-planning--header--control pa-planning--header--control-zoom">
       <%= t('shared.planning.displayed_period') %>
       <div class="dropdown">
-        <a data-target="#" href="#" data-toggle="dropdown" class="dropdown-toggle"><span><%= @planning_default_zoom %> <%= t('concepts.months') %></span> <b class="caret"></b></a>
+        <a data-target="#" href="#" data-toggle="dropdown" class="dropdown-toggle"><span><%= @planning_view_default_zoom %> <%= t('concepts.months') %></span> <b class="caret"></b></a>
         <ul class="dropdown-menu scrollable-list">
-          <% @planning_available_zoom.each do |nb_of_months, percent| %>
-            <li<%= ' class="active"'.html_safe if @planning_default_zoom == nb_of_months %>>
+          <% @planning_view_available_zoom.each do |nb_of_months, percent| %>
+            <li<%= ' class="active"'.html_safe if @planning_view_default_zoom == nb_of_months %>>
               <a href="#" class="pa-planning--ctrl-move-zoom" data-nb-of-months="<%= nb_of_months %>" data-zoom="<%= percent %>"><%= nb_of_months %> <%= t('concepts.months') %></a>
             </li>
           <% end %>
@@ -44,18 +44,18 @@
 
     <div class="pa-planning--row-container">
       <div class="pa-planning--row-wrapper pa-planning--row-wrapper-vertical-bar">
-        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>"></div>
-        <% if @planning_highlight_name %>
-          <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight-name" style="<%= "left: #{@planning_highlight_x}%; width: #{@planning_highlight_width}%;" %>">
-            <span><%= @planning_highlight_name %></span>
+        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight" style="<%= "left: #{@planning_view_highlight_x}%; width: #{@planning_view_highlight_width}%;" %>"></div>
+        <% if @planning_view_highlight_name %>
+          <div class="pa-planning--vertical-bar pa-planning--vertical-bar-highlight-name" style="<%= "left: #{@planning_view_highlight_x}%; width: #{@planning_view_highlight_width}%;" %>">
+            <span><%= @planning_view_highlight_name %></span>
           </div>
         <% end %>
 
-        <% @planning_months.each do |month| %>
+        <% @planning_view_months.each do |month| %>
           <div class="pa-planning--vertical-bar pa-planning--vertical-bar-<%= month[:date].month == 1 ? "year" : "month" %>" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>"></div>
         <% end %>
 
-        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-today" style="<%= "left: #{@planning_today_x}%;" %>">
+        <div class="pa-planning--vertical-bar pa-planning--vertical-bar-today" style="<%= "left: #{@planning_view_today_x}%;" %>">
           <span><%= t('concepts.today') %></span>
         </div>
       </div>
@@ -71,31 +71,31 @@
 
            @collection.each do |row|
 
-             if @planning_group_by != :none && prev_group_by_id != row.send(@planning_group_by).id
+             if @planning_view_group_by != :none && prev_group_by_id != row.send(@planning_view_group_by).id
       %>
             <div class="pa-planning--row pa-planning--row-head">
-              <%= row.send(@planning_group_by) %>
+              <%= row.send(@planning_view_group_by) %>
             </div>
           <%
              end
           %>
 
-          <%= content_tag :div, class: "pa-planning--row #{'pa-planning--row-expandable' if @planning_expandable}", data: @planning_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
+          <%= content_tag :div, class: "pa-planning--row #{'pa-planning--row-expandable' if @planning_view_expandable}", data: @planning_view_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
 
             <div class="pa-planning--row-container">
               <div class="pa-planning--row-wrapper">
                 <%
                    prev_timeslot_start_date = nil
                    prev_timeslot_end_date = nil
-                   @planning_timeslots.each_with_index do |timeslot, timeslot_index|
+                   @planning_view_timeslots.each_with_index do |timeslot, timeslot_index|
                      timeslot_start_date = row.send(timeslot[:start_attribute])
-                     timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_end_date
+                     timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_view_end_date
 
                      if prev_timeslot_start_date != timeslot_start_date || prev_timeslot_end_date != timeslot_end_date
                        timeslot_nb_of_days = (timeslot_end_date - timeslot_start_date + 1).to_i
 
-                       timeslot_x = ((timeslot_start_date - @planning_start_date + 1) * 100 / @planning_nb_of_days).to_f
-                       timeslot_width = (timeslot_nb_of_days * 100 / @planning_nb_of_days).to_f
+                       timeslot_x = ((timeslot_start_date - @planning_view_start_date + 1) * 100 / @planning_view_nb_of_days).to_f
+                       timeslot_width = (timeslot_nb_of_days * 100 / @planning_view_nb_of_days).to_f
                 %>
                     <div class="<%= "pa-planning--row--timeslot #{'unlimited' unless row.send(timeslot[:end_attribute])} #{row.planning_timeslot_class} #{"light" if timeslot_index > 0}" %>" style="<%= "left: #{timeslot_x}%; width: #{timeslot_width}%;" %>">
                       <% if timeslot[:milestones_method] %>
@@ -138,7 +138,7 @@
           <% end %>
 
         <%
-           prev_group_by_id = row.send(@planning_group_by).id if @planning_group_by != :none && prev_group_by_id != row.send(@planning_group_by).id
+           prev_group_by_id = row.send(@planning_view_group_by).id if @planning_view_group_by != :none && prev_group_by_id != row.send(@planning_view_group_by).id
            end
            end
         %>
