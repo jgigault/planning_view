@@ -48,7 +48,7 @@ module PlanningView
 
           @planning_view_months << {
             date: month,
-            name: "#{'<span>' if current_year != month.year}#{I18n.t("date.abbr_month_names")[month.month]}#{"<br /></span>#{month.year}".html_safe if current_year != month.year}",
+            name: "#{'<span>' if current_year != month.year}#{I18n.t("date.abbr_month_names")[month.month]}#{"<br /></span><span>#{month.year}</span>".html_safe if current_year != month.year}",
             x: start_month_x,
             width: (((month + 1.month) - month) * 100 / @planning_view_nb_of_days).to_f,
             highlight: (month >= start_date && month < end_date)
