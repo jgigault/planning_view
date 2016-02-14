@@ -149,7 +149,7 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
       style.styleSheet.cssText = css;
     else
       style.appendChild(document.createTextNode css)
-  head.appendChild(style)
+      head.appendChild(style)
   if value == undefined
     return property[style]
   else
