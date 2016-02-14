@@ -141,6 +141,7 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
       break
   if property == undefined
     css = "#planning-view__container .planning-view__row-wrapper { #{property}: #{value} }"
+    console.log css
     head = document.head || document.getElementsByTagName('head')[0]
     style = document.createElement 'style'
     style.type = 'text/css'
@@ -149,7 +150,7 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
       style.styleSheet.cssText = css;
     else
       style.appendChild(document.createTextNode css)
-      head.appendChild(style)
+    head.appendChild(style)
   if value == undefined
     return property[style]
   else
