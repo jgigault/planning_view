@@ -151,10 +151,12 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
     else
       style.appendChild(document.createTextNode css)
     head.appendChild(style)
-  if value == undefined
-    return property[style]
   else
-    return property[style] = value
+    console.log "YES"
+    if value == undefined
+      return property[style]
+    else
+      return property[style] = value
 
 
 pa_planning_wrapper_property = (property, value = undefined) ->
