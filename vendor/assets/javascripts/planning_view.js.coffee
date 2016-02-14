@@ -116,11 +116,11 @@ pa_planning_update_header = (e) ->
 pa_planning_shortcuts = (e) ->
   unless window.pa_planning_ctrl_locker
     if e.keyCode == 37
-#move left
+      #move left
       window.pa_planning_ctrl_locker = true
       pa_planning_horizontal_move 10
     else if e.keyCode == 39
-#move right
+      #move right
       window.pa_planning_ctrl_locker = true
       pa_planning_horizontal_move -10
 
@@ -129,8 +129,35 @@ pa_planning_shortcuts_unlock = () ->
   window.pa_planning_ctrl_locker = false
 
 #  access properties of the wrapper's css rule
+window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined) ->
+  property = undefined
+  for i in document.styleSheets
+    if i.title && i.title.indexOf stylesheet != -1
+      rules = i[if document.all then 'rules' else 'cssRules']
+      for j in rules
+        if j.selectorText == selector
+          property = j.style
+          break
+      break
+  if property == undefined
+    css = "#planning-view__container .planning-view__row-wrapper { #{property}: #{value} }"
+    head = document.head || document.getElementsByTagName('head')[0]
+    style = document.createElement 'style'
+    style.type = 'text/css'
+    style.title = 'pa-planning-cssRules'
+    if style.styleSheet
+      style.styleSheet.cssText = css;
+    else
+      style.appendChild(document.createTextNode css)
+  head.appendChild(style)
+  if value == undefined
+    return property[style]
+  else
+    return property[style] = value
+
+
 pa_planning_wrapper_property = (property, value = undefined) ->
-  return CCSStylesheetRuleStyle 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
+  return CCSStylesheetRuleStyle2 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
 
 #  move left or right the wrappers
 pa_planning_horizontal_move = (delta) ->
