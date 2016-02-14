@@ -112,14 +112,14 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
     css = "#{selector} { #{style}: #{value} }"
     console.log css
     head = document.head || document.getElementsByTagName('head')[0]
-    style = document.createElement 'style'
-    style.type = 'text/css'
-    style.title = 'pa-planning-cssRules'
-    if style.styleSheet
-      style.styleSheet.cssText = css;
+    style_node = document.createElement 'style'
+    style_node.type = 'text/css'
+    style_node.title = 'pa-planning-cssRules'
+    if style_node.styleSheet
+      style_node.styleSheet.cssText = css;
     else
-      style.appendChild(document.createTextNode css)
-    head.appendChild(style)
+      style_node.appendChild(document.createTextNode css)
+    head.appendChild(style_node)
   else
     console.log "YES"
     if value == undefined
