@@ -65,12 +65,12 @@
 @pa_planning_fixedheader_width: @gridRowWidth1200 - 2px;
 @pa_planning_fixedheader_width_responsive: @gridRowWidth768 - 2px;
 
-.pa-planning--container {
+.planning-view__container {
   position :relative;
   margin-bottom: 20px;
   background-color: #FFFFFF;
 
-  .pa-planning--row-container {
+  .planning-view__row-container {
     position: absolute;
     top: 0;
     left: @pa_planning_leftside_width;
@@ -81,14 +81,14 @@
     overflow: hidden;
   }
 
-  .pa-planning--row-wrapper {
+  .planning-view__row-wrapper {
     position: relative;
     margin-left: (@pa_planning_default_zoom - 100%) / 2 * -1;
     width: @pa_planning_default_zoom;
     background-color: #FAFAFA;
     transition: all 0.2s ease-out;
 
-    &.pa-planning--row-wrapper-vertical-bar {
+    &.planning-view__row-wrapper-vertical-bar {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -99,14 +99,14 @@
   }
 
 
-  .pa-planning--header--control {
+  .planning-view__header--control {
     position: absolute;
     top: 0;
     height: @pa_planning_header_height;
     line-height: @pa_planning_header_height;
 
-    &.pa-planning--header--control-right,
-    &.pa-planning--header--control-left {
+    &.planning-view__header--control-right,
+    &.planning-view__header--control-left {
       opacity: 1;
       z-index: 710;
 
@@ -121,15 +121,15 @@
       }
     }
 
-    &.pa-planning--header--control-right {
+    &.planning-view__header--control-right {
       right: -23px;
     }
 
-    &.pa-planning--header--control-left {
+    &.planning-view__header--control-left {
       left: @pa_planning_leftside_width - 23px;
     }
 
-    &.pa-planning--header--control-zoom {
+    &.planning-view__header--control-zoom {
       position: absolute;
       top: 15px;
       left: 10px;
@@ -141,7 +141,7 @@
     }
   }
 
-  .pa-planning--header {
+  .planning-view__header {
     position: relative;
     height: @pa_planning_header_height;
     border: 1px solid #dedede;
@@ -150,7 +150,7 @@
 
     #gradient > .vertical(#F8F8F8, #E8E8E8);
 
-    &.pa-planning--header--fixed {
+    &.planning-view__header--fixed {
       position: fixed;
       top: 77px;
       width: @pa_planning_fixedheader_width;
@@ -162,7 +162,7 @@
       border-top-right-radius: 0px;
     }
 
-    .pa-planning--header--month {
+    .planning-view__header--month {
       position: absolute;
       top: 0;
       left: 0;
@@ -198,24 +198,24 @@
         border-left: 0;
       }
 
-      &.pa-planning--header--month-highlight {
+      &.planning-view__header--month-highlight {
         #gradient > .vertical(#F1F1F1, #D1D1D1);
       }
     }
   }
 
-  .pa-planning--body {
+  .planning-view__body {
     position: relative;
     border: 1px solid #dedede;
     overflow: hidden;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 
-    &.pa-planning--body--alone {
+    &.planning-view__body--alone {
       margin-top: 60px;
     }
 
-    .pa-planning--vertical-bar {
+    .planning-view__vertical-bar {
       position: absolute;
       left: -100%;
       top: 0;
@@ -223,7 +223,7 @@
       width: 2px;
       height: auto;
 
-      &.pa-planning--vertical-bar-today {
+      &.planning-view__vertical-bar-today {
         background-color: #9d261d;
         width: 4px;
         margin-left: -2px;
@@ -238,11 +238,11 @@
         }
       }
 
-      &.pa-planning--vertical-bar-highlight {
+      &.planning-view__vertical-bar-highlight {
         background-color: #FFFFFF;
       }
 
-      &.pa-planning--vertical-bar-highlight-name {
+      &.planning-view__vertical-bar-highlight-name {
         bottom: auto;
         line-height: 15px;
         background-color: #dadada;
@@ -254,11 +254,11 @@
         }
       }
 
-      &.pa-planning--vertical-bar-month {
+      &.planning-view__vertical-bar-month {
         border-left: 1px dashed #bbbbbb;
       }
 
-      &.pa-planning--vertical-bar-year {
+      &.planning-view__vertical-bar-year {
         border-left: 1px solid #aaaaaa;
       }
 
@@ -267,7 +267,7 @@
       }
     }
 
-    .pa-planning--row {
+    .planning-view__row {
       position: relative;
       height: @pa_planning_row_height;
       margin: 0px 0 0px 0;
@@ -281,12 +281,12 @@
       &:hover {
         background-color: rgba(180, 180, 180, .2);
 
-        .pa-planning--row--sidebar-left {
+        .planning-view__row--sidebar-left {
           background-color: rgba(180, 180, 180, .2);
         }
       }
 
-      &.pa-planning--row-head {
+      &.planning-view__row-head {
         margin: 0;
         right: 0;
         #gradient > .vertical(#F8F8F8, #E8E8E8);
@@ -314,18 +314,18 @@
         .box-shadow( 0px 0px 10px 0 rgba(0,0,0,.2));
         z-index: 315;
 
-        .pa-planning--row--expandable-content {
+        .planning-view__row--expandable-content {
           display: block;
         }
       }
 
-      &.pa-planning--row-expandable {
-        .pa-planning--row-container {
+      &.planning-view__row-expandable {
+        .planning-view__row-container {
           cursor: pointer;
         }
       }
 
-      .pa-planning--row--milestones {
+      .planning-view__row--milestones {
         position: absolute;
         top: 0;
         left: 0;
@@ -334,7 +334,7 @@
         width: auto;
         height: auto;
 
-        .pa-planning--row--milestones-item {
+        .planning-view__row--milestones-item {
           position: absolute;
           top: -2px;
           left: 0;
@@ -360,7 +360,7 @@
         }
       }
 
-      .pa-planning--row--expandable-content {
+      .planning-view__row--expandable-content {
         position: absolute;
         left: 0;
         right: 0;
@@ -374,7 +374,7 @@
         background-color: rgba(255, 255, 255, 1);
       }
 
-      .pa-planning--row--sidebar-left {
+      .planning-view__row--sidebar-left {
         position: absolute;
         left: 0;
         top: 0px;
@@ -388,7 +388,7 @@
         transition: all .2s ease-out;
       }
 
-      .pa-planning--row--timeslot {
+      .planning-view__row--timeslot {
         position: absolute;
         left: 0;
         height: @pa_planning_timeslot_height;
@@ -425,7 +425,7 @@
     }
   }
 
-  .pa-planning--shadow {
+  .planning-view__shadow {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -433,12 +433,12 @@
     width: 20px;
     z-index: 215;
 
-    &.pa-planning--shadow-left {
+    &.planning-view__shadow-left {
       right: 100%;
       .box-shadow(5px 0px 5px 0 rgba(0, 0, 0, .2));
     }
 
-    &.pa-planning--shadow-right {
+    &.planning-view__shadow-right {
       left: 100%;
       .box-shadow(-5px 0px 5px 0 rgba(0, 0, 0, .2));
     }
@@ -446,7 +446,7 @@
 
   // breadcrumb milestones
   // https://css-tricks.com/triangle-breadcrumbs/
-  .pa-planning--breadcrumb {
+  .planning-view__breadcrumb {
     list-style: none;
     overflow: hidden;
     margin: 0;
@@ -543,8 +543,8 @@
 
   // responsive utilities
   @media (max-width: 979px) {
-    .pa-planning--header {
-      &.pa-planning--header--fixed {
+    .planning-view__header {
+      &.planning-view__header--fixed {
         top: 0;
         width: @pa_planning_fixedheader_width_responsive;
       }

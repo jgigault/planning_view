@@ -1,17 +1,17 @@
 <%
    project_statuses = row.milestones_for_planning
 %>
-<div class="pa-planning--row--sidebar-left <%= 'phase-1' if row.late? %>">
+<div class="planning-view__row--sidebar-left <%= 'phase-1' if row.late? %>">
 
   <div class="pull-right" style="padding: 6px 5px 0 0;" rel="tooltip" title="<%= t("activerecord.attributes.budget.pipeline_savings#{Tenant.app_config('savings_calculation') == 2 ? '' : '_annualised'}") %>" data-placement="right">
     <%= to_cur ConvertService.call(row.send("pipeline_savings#{Tenant.app_config('savings_calculation') == 2 ? '' : '_annualised'}_base"), @config_base_currency_id, @t_cur, row.action_plan.start_on) %>
   </div>
 
-  <div class="pa-planning--row--sidebar-left--row">
+  <div class="planning-view__row--sidebar-left--row">
     <strong><%= row.name %></strong>
   </div>
 
-  <div class="pa-planning--row--sidebar-left--row">
+  <div class="planning-view__row--sidebar-left--row">
     Line 2
   </div>
 
@@ -22,9 +22,9 @@
   </div>
 
 </div>
-<div class="pa-planning--row--expandable-content">
+<div class="planning-view__row--expandable-content">
 
-  <ul class="pa-planning--breadcrumb">
+  <ul class="planning-view__breadcrumb">
     <li style="width: <%= @status_width_for_expandable_content %>%;">
       <span class="phase-white light">
         <small><%= t('activerecord.attributes.budget.negotiation_start') %></small> <br />
