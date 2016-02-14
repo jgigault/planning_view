@@ -11,6 +11,7 @@ $(document).ready ->
     #
     window.planning_view_global_y_limit = 0         #vertical scroll position for the floating header
     window.planning_view_global_ctrl_locker = false #keydown status to prevent from repeating control key
+    window.planning_view_wrapper_css_rule = undefined
     #
     #
     #END GLOBAL VARIABLES
@@ -98,36 +99,41 @@ window.planning_view_func_shortcuts_unlock = () ->
   window.planning_view_global_ctrl_locker = false
 
 #  access properties of the wrapper's css rule
-window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined) ->
-  property = undefined
+window.planning_view_func_initialize_wrapper_css_rule = () ->
+  selector = '#planning-view__container .planning-view__row-wrapper'
   for i in document.styleSheets
-    if i.title && i.title.indexOf stylesheet != -1
-      rules = i[if document.all then 'rules' else 'cssRules']
-      for j in rules
-        if j.selectorText == selector
-          property = j.style
-          break
-      break
-  if property == undefined
+    rules = i[if document.all then 'rules' else 'cssRules']
+    for r in rules
+      if r.selectorText == selector
+        window.planning_view_wrapper_css_rule = r.style
+        break
+  if window.planning_view_wrapper_css_rule == undefined
     css = "#{selector} { margin-left: 0%; #{style}: #{value} }"
     head = document.head || document.getElementsByTagName('head')[0]
     style_node = document.createElement 'style'
     style_node.type = 'text/css'
-    style_node.title = 'pa-planning-cssRules'
+    style_node.title = 'planning-view__style'
     if style_node.styleSheet
       style_node.styleSheet.cssText = css;
     else
       style_node.appendChild(document.createTextNode css)
     head.appendChild(style_node)
-  else
-    if value == undefined
-      return property[style]
-    else
-      return property[style] = value
 
+    for i in document.styleSheets
+      rules = i[if document.all then 'rules' else 'cssRules']
+      if rules.title && rules.title.title 'planning-view__style'
+        for r in rules
+          if r.selectorText == selector
+            window.planning_view_wrapper_css_rule = r.style
+            break
+        break
 
 window.planning_view_func_wrapper_property = (property, value = undefined) ->
-  return CCSStylesheetRuleStyle2 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
+  if value == undefined
+    return window.planning_view_wrapper_css_rule[property]
+  else
+    return window.planning_view_wrapper_css_rule[property] = value
+  #return CCSStylesheetRuleStyle2 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
 
 #  move left or right the wrappers
 window.planning_view_func_move_x = (delta) ->
