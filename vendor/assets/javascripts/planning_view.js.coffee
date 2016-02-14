@@ -4,7 +4,7 @@
 $(document).ready ->
 
 #do stuff only on planning views
-  if $('.planning-view__container').length
+  if $('#planning-view__container').length
 
 #START BUDGETS SPECIFIC FILTERS
 #
@@ -72,7 +72,7 @@ $(document).ready ->
     #
     #
     #  initialize global variables
-    window.pa_planning_y_limit = $('.planning-view__container').offset().top - 79
+    window.pa_planning_y_limit = $('#planning-view__container').offset().top - 79
 
     #  default zoom
     pa_planning_zoom $(".planning-view__header--control-zoom li.active a").data('zoom')
@@ -130,7 +130,7 @@ pa_planning_shortcuts_unlock = () ->
 
 #  access properties of the wrapper's css rule
 pa_planning_wrapper_property = (property, value = undefined) ->
-  return CCSStylesheetRuleStyle 'pa-planning-cssRules', '.planning-view__container .planning-view__row-wrapper', property, value
+  return CCSStylesheetRuleStyle 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
 
 #  move left or right the wrappers
 pa_planning_horizontal_move = (delta) ->
