@@ -4,12 +4,14 @@ Welcome to your new gem! In this directory, you'll find the files you need to be
 
 TODO: Delete this and the text above, and describe your gem
 
+<img src="http://i.imgur.com/XuoqqUs.png">
+
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'planning_view'
+gem 'planning_view', github: 'http://github.com/jgigault/planning_view'
 ```
 
 And then execute:
