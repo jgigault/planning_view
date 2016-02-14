@@ -1,5 +1,5 @@
 <%
-   project_statuses = row.milestones_for_planning
+   row_milestones = row.milestones_for_planning
 %>
 <div class="planning-view__row--sidebar-left <%= 'phase-1' if row.late? %>">
 
@@ -32,7 +32,7 @@
       </span>
     </li>
 
-    <% project_statuses.each do |status| %>
+    <% row_milestones.each do |status| %>
       <li style="width: <%= @status_width_for_expandable_content %>%;">
         <span class="phase-<%= status[:phase_id] %> <%= "light" if row.status.id != status[:id] %>">
           <small><%= status[:name] %></small><br />

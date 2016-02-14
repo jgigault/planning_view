@@ -116,11 +116,11 @@
                               <div class="planning-view__row--milestones-item" style="<%= "left: #{m_x}%;#{"margin-top: #{overlays_count * 2}px;margin-left: #{overlays_count * 2}px;z-index: #{200 + overlays_count};" if overlays_count > 0}" %>">
                                 <%= m[:html_content].html_safe %>
                               </div>
-                            <%
-                               prev_milestone = m
-                               end
-                               end
-                            %>
+                          <%
+                                prev_milestone = m
+                                end
+                              end
+                          %>
                         </div>
                       <% end %>
                     </div>
@@ -139,9 +139,9 @@
           <% end %>
 
         <%
-           prev_group_by_id = row.send(@planning_view_group_by).id if @planning_view_group_by != :none && prev_group_by_id != row.send(@planning_view_group_by).id
-           end
-           end
+            prev_group_by_id = row.send(@planning_view_group_by).id if @planning_view_group_by != :none && prev_group_by_id != row.send(@planning_view_group_by).id
+            end
+          end
         %>
 
     </div>

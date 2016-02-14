@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jean-Michel Gigault"]
   spec.email         = ["jgigault@student.42.fr"]
 
-  spec.summary       = %q{Transform your list views into beautiful planning views.}
-  spec.description   = %q{Transform your list views into beautiful planning views.}
+  spec.summary       = %q{Transform your lists into beautiful responsive planning views.}
+  spec.description   = %q{Transform your lists into beautiful responsive planning views.}
   spec.homepage      = "http://github.com/jgigault/planning_view"
   spec.license       = "MIT"
 
@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.2.2'
 
+  spec.add_dependency 'rails', ['>= 3.0', '< 5.0']
+  spec.add_dependency 'activesupport', ['>= 3.0', '< 6.0']
   #spec.add_dependency 'activesupport', ['>= 3.0', '< 6.0']
 
   spec.add_development_dependency "bundler", "~> 1.10"
