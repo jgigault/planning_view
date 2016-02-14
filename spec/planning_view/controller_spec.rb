@@ -4,7 +4,7 @@ class MockController #< ActionController::TestCase
   include PlanningView::Controller
 end
 
-describe 'controller', type: :controller do
+describe 'controller' do
   it 'works' do
     cat = Category.create
     p = Project.create category: cat, negotiation_start: Date.new(2015), negotiation_end: Date.new(2016)
