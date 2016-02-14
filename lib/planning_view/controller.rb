@@ -1,14 +1,14 @@
-require 'active_support/concern'
+#require 'active_support/concern'
 
 module PlanningView
   module Controller
-    extend ActiveSupport::Concern
+    #extend ActiveSupport::Concern
 
-    def self.included(base)
-      base.send :extend, ClassMethods
-    end
+    #def self.included(base)
+    #  base.send :extend, ClassMethods
+    #end
 
-    module ClassMethods
+    #module ClassMethods
       def build_planning_view_variables(today: Date.today,
                                         start_date:,
                                         end_date:,
@@ -67,6 +67,6 @@ module PlanningView
           3  => (100.0 / 3.5 * nb_of_years * 12).to_i
         }
       end
-    end
+    #end
   end
 end
