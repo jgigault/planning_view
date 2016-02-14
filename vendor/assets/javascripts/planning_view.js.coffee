@@ -109,7 +109,7 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
           break
       break
   if property == undefined
-    css = "#planning-view__container .planning-view__row-wrapper { #{property}: #{value} }"
+    css = "#{selector} { #{style}: #{value} }"
     console.log css
     head = document.head || document.getElementsByTagName('head')[0]
     style = document.createElement 'style'
