@@ -104,10 +104,11 @@ window.planning_view_func_initialize_wrapper_css_rule = () ->
   selector = '#planning-view__container .planning-view__row-wrapper'
   for i in document.styleSheets
     rules = i[if document.all then 'rules' else 'cssRules']
-    for r in rules
-      if r.selectorText == selector
-        window.planning_view_wrapper_css_rule = r.style
-        break
+    if rules
+      for r in rules
+        if r.selectorText == selector
+          window.planning_view_wrapper_css_rule = r.style
+          break
   if window.planning_view_wrapper_css_rule == undefined
     css = "#{selector} { margin-left: 0%; #{style}: #{value} }"
     head = document.head || document.getElementsByTagName('head')[0]
@@ -122,7 +123,7 @@ window.planning_view_func_initialize_wrapper_css_rule = () ->
 
     for i in document.styleSheets
       rules = i[if document.all then 'rules' else 'cssRules']
-      if rules.title && rules.title.title 'planning-view__style'
+      if rules && rules.title.title 'planning-view__style'
         for r in rules
           if r.selectorText == selector
             window.planning_view_wrapper_css_rule = r.style
