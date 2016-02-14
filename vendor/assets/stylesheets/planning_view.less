@@ -189,10 +189,17 @@
           line-height: 12px;
           display: block;
           margin-top: @pa_planning_header_height / 2;
-        }
 
-        > span > span {
-          display: none;
+          > span {
+
+            &:first-child {
+              display: none;
+            }
+
+            &:last-child {
+              font-weight: bold;
+            }
+          }
         }
       }
 
