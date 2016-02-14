@@ -72,7 +72,7 @@ $(document).ready ->
 #
 #
 #  update header's position
-window.planning_view_func_update_header = (e) ->
+planning_view_func_update_header = (e) ->
   y = $(window).scrollTop()
   if y > window.planning_view_global_y_limit
     if !$('.planning-view__header').hasClass 'planning-view__header--fixed'
@@ -84,7 +84,7 @@ window.planning_view_func_update_header = (e) ->
       $('.planning-view__body').removeClass 'planning-view__body--alone'
 
 #  manage keyboard shortcuts
-window.planning_view_func_shortcuts = (e) ->
+planning_view_func_shortcuts = (e) ->
   unless window.planning_view_global_ctrl_locker
     if e.keyCode == 37
       #move left
@@ -96,12 +96,11 @@ window.planning_view_func_shortcuts = (e) ->
       planning_view_func_move_x -10
 
 #  unlock keyboard shortcuts
-window.planning_view_func_shortcuts_unlock = () ->
+planning_view_func_shortcuts_unlock = () ->
   window.planning_view_global_ctrl_locker = false
 
 #  access properties of the wrapper's css rule
-window.planning_view_func_initialize_wrapper_css_rule = () ->
-  selector = '#planning-view__container .planning-view__row-wrapper'
+planning_view_func_find_rule = (selector) ->
   for i in document.styleSheets
     rules = i[if document.all then 'rules' else 'cssRules']
     if rules
@@ -109,6 +108,11 @@ window.planning_view_func_initialize_wrapper_css_rule = () ->
         if r.selectorText == selector
           window.planning_view_wrapper_css_rule = r.style
           break
+
+
+planning_view_func_initialize_wrapper_css_rule = () ->
+  selector = '#planning-view__container .planning-view__row-wrapper'
+  window.planning_view_wrapper_css_rule = planning_view_func_find_rule(selector)
   if window.planning_view_wrapper_css_rule == undefined
     css = "#{selector} { margin-left: 0%; #{style}: #{value} }"
     head = document.head || document.getElementsByTagName('head')[0]
@@ -120,15 +124,7 @@ window.planning_view_func_initialize_wrapper_css_rule = () ->
     else
       style_node.appendChild(document.createTextNode css)
     head.appendChild(style_node)
-
-    for i in document.styleSheets
-      rules = i[if document.all then 'rules' else 'cssRules']
-      if rules && rules.title.title 'planning-view__style'
-        for r in rules
-          if r.selectorText == selector
-            window.planning_view_wrapper_css_rule = r.style
-            break
-        break
+    window.planning_view_wrapper_css_rule = planning_view_func_find_rule(selector)
 
 window.planning_view_func_wrapper_property = (property, value = undefined) ->
   if value == undefined
