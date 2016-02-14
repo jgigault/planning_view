@@ -6,7 +6,6 @@ $(document).ready ->
   #do stuff only on planning views
   if $('#planning-view__container').length
 
-
     #START GLOBAL VARIABLES
     #
     #
@@ -16,37 +15,6 @@ $(document).ready ->
     #
     #END GLOBAL VARIABLES
 
-    #START BUDGETS SPECIFIC FILTERS
-    #
-    #
-    #  checkboxes for status and priority
-    #  (see partial '_planning_filters.html.erb')
-    #$(document).on 'change', "input[type='checkbox'][id='status'], input[type='checkbox'][id='priority']", () ->
-    #  unchecked_status = []
-    #  unchecked_priority = []
-    #  $("input[type='checkbox'][id='status']:not(:checked)").each () ->
-    #    unchecked_status.push $(this).val()
-    #  $("input[type='checkbox'][id='priority']:not(:checked)").each () ->
-    #    unchecked_priority.push $(this).val()
-    #  $('.planning-view__row').each () ->
-    #    el = $(this);
-    #    status = el.data 'status-id'
-    #    priority = el.data 'priority'
-    #    if $.inArray(String(priority), unchecked_priority) == -1  && $.inArray(String(status), unchecked_status) == -1
-    #      el.show()
-    #    else
-    #      el.hide()
-    #
-    #  all/none buttons
-    #$(document).on 'click', '.filter-link', (e) ->
-    #  e.preventDefault()
-    #  el = $(this)
-    #  $("input[type='checkbox'][name='" + el.data('target') + "']").prop 'checked', (el.data('action') == 'all')
-    #  $("input[type='checkbox'][name='" + el.data('target') + "']").change()
-    #
-    #
-    #END BUDGETS SPECIFIC FILTERS
-
     #START INTERACTIVE
     #
     #
@@ -55,9 +23,9 @@ $(document).ready ->
     $(document).bind 'keyup', pa_planning_shortcuts_unlock
 
     #  disable shortcuts when focusing on text inputs
-    $(document).on 'focus', 'input[type=text]', () ->
+    $(document).on 'focus', 'input', () ->
       $(document).unbind 'keydown', planning_shortcuts
-    $(document).on 'blur', 'input[type=text]', () ->
+    $(document).on 'blur', 'input', () ->
       $(document).bind 'keydown', planning_shortcuts
 
     #  control buttons
