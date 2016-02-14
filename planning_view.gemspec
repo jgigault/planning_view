@@ -6,7 +6,7 @@ require 'planning_view/version'
 Gem::Specification.new do |spec|
   spec.name          = "planning_view"
   spec.version       = PlanningView::VERSION
-  spec.authors       = ["jgigault"]
+  spec.authors       = ["Jean-Michel Gigault"]
   spec.email         = ["jgigault@student.42.fr"]
 
   spec.summary       = %q{Transform your list views into beautiful planning views.}
