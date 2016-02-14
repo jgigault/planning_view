@@ -1,4 +1,4 @@
-#require 'active_support/concern'
+require 'active_support/core_ext/string/output_safety'
 
 module PlanningView
   module Controller
@@ -15,7 +15,7 @@ module PlanningView
                                         padding_time: 10,
                                         default_zoom: 12,
                                         group_by: :none,
-                                        timeslots:,
+                                        timeslots: nil,
                                         expandable: false,
                                         highlight_name: nil,
                                         data_attributes: {})

@@ -109,7 +109,6 @@ planning_view_func_find_rule = (selector) ->
           window.planning_view_wrapper_css_rule = r.style
           break
 
-
 planning_view_func_initialize_wrapper_css_rule = () ->
   selector = '#planning-view__container .planning-view__row-wrapper'
   window.planning_view_wrapper_css_rule = planning_view_func_find_rule(selector)
