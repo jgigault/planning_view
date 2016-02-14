@@ -12,6 +12,7 @@ $(document).ready ->
     window.planning_view_global_y_limit = 0         #vertical scroll position for the floating header
     window.planning_view_global_ctrl_locker = false #keydown status to prevent from repeating control key
     window.planning_view_wrapper_css_rule = undefined
+    planning_view_func_initialize_wrapper_css_rule()
     #
     #
     #END GLOBAL VARIABLES
