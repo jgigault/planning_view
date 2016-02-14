@@ -109,7 +109,7 @@ window.CCSStylesheetRuleStyle2 = (stylesheet, selector, style, value = undefined
           break
       break
   if property == undefined
-    css = "#{selector} { #{style}: #{value} }"
+    css = "#{selector} { margin-left: 0%; #{style}: #{value} }"
     console.log css
     head = document.head || document.getElementsByTagName('head')[0]
     style_node = document.createElement 'style'
