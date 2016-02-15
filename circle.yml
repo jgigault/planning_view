@@ -4,6 +4,12 @@ machine:
   ruby:
     version: 2.2.2
 
+  services:
+    - sqlite3
+
+  hosts:
+    planning_gem.dev: 127.0.0.1
+
 ## Customize database setup
 database:
   override:
