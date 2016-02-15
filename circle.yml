@@ -5,9 +5,6 @@ machine:
   ruby:
     version: 2.2.2
 
-  hosts:
-    planning_gem.dev: 127.0.0.1
-
 ## preparing the databases for your tests
 database:
   override:
