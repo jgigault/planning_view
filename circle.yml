@@ -1,21 +1,19 @@
+# adjusting the VM to your preferences and requirements
 machine:
   timezone: Europe/Paris
 
   ruby:
     version: 2.2.2
 
-  services:
-    - sqlite3
-
   hosts:
     planning_gem.dev: 127.0.0.1
 
-## Customize database setup
+## preparing the databases for your tests
 database:
   override:
     - echo "NOTHING TO BE DONE HERE"
 
-## Customize test commands
+## running your tests
 test:
   override:
     - xvfb-run --auto-servernum bundle exec rake
