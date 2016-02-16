@@ -6,11 +6,13 @@ module PlanningView
 
     class NoCollectionError < StandardError; end
     class EndDateBeforeOrEqualToStartDateError < StandardError; end
+    class NegativeMarginError < StandardError; end
 
     def build_planning_view_variables(start_date: Date.today.beginning_of_year,
                                         end_date: Date.today.end_of_year,
                                        timeslots: [],
-                                     margin_time: {before: 10.years, after: 10.years},
+                              margin_time_before: 10.years,
+                               margin_time_after: 10.years,
                                           marker: {date: Date.today, label: I18n.t('concepts.today')},
                                     default_zoom: 12,
                                         group_by: nil,
@@ -20,6 +22,7 @@ module PlanningView
 
       raise NoCollectionError if @collection == nil
       raise EndDateBeforeOrEqualToStartDateError if end_date <= start_date
+      raise NegativeMarginError if margin_time_before < 0 || margin_time_after < 0
 
       @planning_view_marker_date = marker[:date]
       @planning_view_marker_label = marker[:label]
@@ -34,8 +37,8 @@ module PlanningView
       @planning_view_end_date = end_date
       @planning_view_nb_of_days = end_date - start_date + 1
 
-      @planning_view_margins_start_date = start_date - margin_time[:before]
-      @planning_view_margins_end_date = end_date + margin_time[:after]
+      @planning_view_margins_start_date = start_date - margin_time_before
+      @planning_view_margins_end_date = end_date + margin_time_after
       @planning_view_margins_nb_of_days = @planning_view_margins_end_date - @planning_view_margins_start_date + 1
 
       @planning_view_width = (@planning_view_nb_of_days * 100 / @planning_view_margins_nb_of_days).to_f
