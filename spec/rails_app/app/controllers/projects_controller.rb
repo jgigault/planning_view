@@ -1,12 +1,26 @@
 require 'rails_app/app/controllers/application_controller'
 
 class ProjectsController < ApplicationController
-  attr_accessor :collection
   include PlanningView::Controller
 
+  # for tests
+  attr_accessor :disable_collection
+  attr_accessor :start_date
+  attr_accessor :end_date
+  attr_accessor :additional_time_before
+  attr_accessor :additional_time_after
+
   def planning
-    @collection = Project.all
-    build_planning_view_variables
+    @collection = Project.all unless disable_collection
+
+    params = {}
+    params[:start_date] = start_date if start_date
+    params[:end_date] = end_date if end_date
+    params[:additional_time_before] = additional_time_before if additional_time_before
+    params[:additional_time_after] = additional_time_after if additional_time_after
+
+    build_planning_view_variables params
+
     render partial: 'planning_view/planning_view'
   end
 end
