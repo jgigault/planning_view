@@ -16,21 +16,16 @@ describe ProjectsController, type: :controller do
 
     it 'assigns with default values' do
       get :planning
-
       expect(assigns(:planning_view_start_date)).to eq date_beginning_of_year
       expect(assigns(:planning_view_end_date)).to eq date_end_of_year
-
       expect(assigns(:planning_view_additional_time_start_date)).to eq(date_beginning_of_year - 10.years)
       expect(assigns(:planning_view_additional_time_end_date)).to eq(date_end_of_year + 10.years)
-
       expect(assigns(:planning_view_name)).to eq(nil)
       expect(assigns(:planning_view_group_by)).to eq(nil)
       expect(assigns(:planning_view_timeslots)).to eq([])
       expect(assigns(:planning_view_expandable)).to eq(false)
-
       expect(assigns(:planning_view_marker_date)).to eq(Date.today)
       expect(assigns(:planning_view_marker_label)).to eq(I18n.t('concepts.today'))
-
       expect(assigns(:planning_view_row_data_attributes)).to eq({})
     end
 
@@ -122,7 +117,7 @@ describe ProjectsController, type: :controller do
       end
     end
 
-    context "margins" do
+    context "additional time" do
       it 'raises when additional before time is negative' do
         controller.additional_time_before = -(5.years)
 

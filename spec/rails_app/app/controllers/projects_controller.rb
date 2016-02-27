@@ -1,4 +1,5 @@
-require 'rails_app/app/controllers/application_controller'
+require File.expand_path('../application_controller', __FILE__)
+require File.expand_path('../../../../../lib/planning_view', __FILE__)
 
 class ProjectsController < ApplicationController
   include PlanningView::Controller
@@ -20,7 +21,5 @@ class ProjectsController < ApplicationController
     params[:additional_time_after] = additional_time_after if additional_time_after
 
     build_planning_view_variables params
-
-    render partial: 'planning_view/planning_view'
   end
 end
