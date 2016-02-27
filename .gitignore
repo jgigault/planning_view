@@ -9,3 +9,6 @@
 /tmp/
 /.idea/
 Gemfile.lock
+.env
+/log/
+/spec/rails_app/log/
