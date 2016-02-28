@@ -1,0 +1,168 @@
+.pvc-body {
+  position: relative;
+  border: 1px solid #dedede;
+  overflow: hidden;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  &.pvc-body_alone {
+    margin-top: $planning_view_header_height;
+  }
+
+  .planning-view__row {
+    position: relative;
+    height: $planning_view_row_height;
+    margin: 0px 0 0px 0;
+    border-top: 1px solid #dedede;
+    transition: all .2s ease-out;
+
+    &:first-child {
+      margin-top: 50px;
+    }
+
+    &:hover {
+      background-color: rgba(180, 180, 180, .2);
+
+      .planning-view__row--sidebar-left {
+        background-color: rgba(180, 180, 180, .2);
+      }
+    }
+
+    &.planning-view__row-head {
+      margin: 0;
+      right: 0;
+      //#gradient > .vertical(#F8F8F8, #E8E8E8);
+      border-top: 1px solid #e8e8e8;
+      height: 22px;
+      padding-left: 10px;
+      font-weight: bold;
+      border-left: 0;
+      border-right: 0;
+
+      &:first-child {
+        margin-top: 46px;
+      }
+
+      &.open {
+        margin: 5px;
+        background-color: #FFFFFF;
+      }
+    }
+
+    &.open {
+      height: $planning_view_row_height + $planning_view_row_expandable_content_height;
+      border-bottom:1px solid #aaaaaa;
+      border-top:1px solid #aaaaaa;
+      @include box-shadow( 0px 0px 10px 0 rgba(0,0,0,.2));
+      z-index: 315;
+
+      .planning-view__row--expandable-content {
+        display: block;
+      }
+    }
+
+    &.planning-view__row-expandable {
+      .planning-view__row-container {
+        cursor: pointer;
+      }
+    }
+
+    .planning-view__row--milestones {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: auto;
+
+      .planning-view__row--milestones-item {
+        position: absolute;
+        top: -2px;
+        left: 0;
+        line-height: $planning_view_timeslot_height - 4px;
+        vertical-align: middle;
+
+        .label {
+          @include box-shadow(1px 1px 2px 0 rgba(0, 0, 0, .3));
+          border:1px solid #777777;
+          font-weight: bold;
+
+          &.is-late {
+            color: #FF0000;
+            font-weight: bold;
+            border: 1px solid #FF0000;
+          }
+
+          &.light {
+            font-weight: normal;
+            opacity: .8;
+          }
+        }
+      }
+    }
+
+    .planning-view__row--expandable-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: auto;
+      top: $planning_view_row_height;
+      display: none;
+      overflow: hidden;
+      height: $planning_view_row_expandable_content_height;
+
+      border-top: 1px dotted #CCCCCC;
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .planning-view__row--sidebar-left {
+      position: absolute;
+      left: 0;
+      top: 0px;
+      bottom: 0;
+      height: auto;
+      width: $planning_view_leftside_width;
+      background-color: #FFFFFF;
+      border: 1px solid #CCC;
+      border-left: 0;
+      border-top: 0;
+      transition: all .2s ease-out;
+    }
+
+    .planning-view__row--timeslot {
+      position: absolute;
+      left: 0;
+      height: $planning_view_timeslot_height;
+      min-width: 20px;
+      border:1px solid rgba(102, 153, 170, .8);
+      border-radius: 3px;
+      @include box-shadow( 1px 1px 2px 0 rgba(0,0,0,.2));
+      text-align:center;
+      transition: all .2s ease-out;
+      z-index: 200;
+
+      &.unlimited {
+        border-right: 2px dotted #000;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-child {
+        z-index: 204;
+        top: (($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2) + ($planning_view_timeslot_height / 2);
+        opacity: .7;
+      }
+
+      &:first-child {
+        z-index: 205;
+        top: (($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2) - ($planning_view_timeslot_height / 2);
+        opacity: 1;
+
+        &:last-child {
+          top: ($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2;
+        }
+      }
+    }
+  }
+}

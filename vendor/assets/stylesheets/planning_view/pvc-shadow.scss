@@ -1,0 +1,18 @@
+.pvc-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 20px;
+  z-index: 215;
+
+  &.pvc-shadow_position_left {
+    right: 100%;
+    @include box-shadow(5px 0px 5px 0 rgba(0, 0, 0, .2));
+  }
+
+  &.pvc-shadow_position_right {
+    left: 100%;
+    @include box-shadow(-5px 0px 5px 0 rgba(0, 0, 0, .2));
+  }
+}

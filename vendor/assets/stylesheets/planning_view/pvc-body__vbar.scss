@@ -1,0 +1,51 @@
+.pvc-body__vbar {
+  position: absolute;
+  left: -100%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  height: auto;
+
+  &.pvc-body__vbar_type_today {
+    background-color: #9d261d;
+    width: 4px;
+    margin-left: -2px;
+    top: 20px;
+
+    span {
+      background-color:  #9d261d;
+      padding: 2px 5px;
+      color: #FFFFFF;
+      font-size: 11px;
+      line-height: 15px;
+    }
+  }
+
+  &.pvc-body__vbar_type_highlight-bg {
+    background-color: #FFFFFF;
+  }
+
+  &.pvc-body__vbar_type_highlight-title {
+    bottom: auto;
+    line-height: 15px;
+    background-color: #dadada;
+    text-align:center;
+
+    span {
+      padding: 0px 5px;
+      font-size: 10px;
+    }
+  }
+
+  &.pvc-body__vbar_type_month {
+    border-left: 1px dashed #bbbbbb;
+  }
+
+  &.pvc-body__vbar_type_year {
+    border-left: 1px solid #aaaaaa;
+  }
+
+  &:first-child {
+    border-left: 0;
+  }
+}

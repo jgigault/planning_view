@@ -1,0 +1,20 @@
+.pvc-scene__wrapper {
+  position: relative;
+  margin-left: ($planning_view_default_zoom - 100%) / 2 * -1;
+  width: $planning_view_default_zoom;
+  background-color: #FAFAFA;
+  transition: all 0.2s ease-out;
+
+  &.planning-view__row-wrapper-vertical-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    left: 0;
+    right: 0;
+  }
+
+  &.pvc-scene__wrapper_container_header {
+    height: $planning_view_header_height;
+  }
+}

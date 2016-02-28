@@ -1,32 +1,29 @@
-<div id="planning-view__container">
+<div id="PlanningViewContainer">
 
-  <div class="planning-view__header">
-    <div class="planning-view__row-container">
+  <div class="pvc-header">
 
-      <div class="planning-view__row-wrapper">
-        <div class="planning-view__header--month planning-view__header--month-highlight" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>"></div>
-
+    <div class="pvc-scene">
+      <div class="pvc-scene__wrapper pvc-scene__wrapper_container_header">
+        <div class="pvc-header__month pvc-header__month_highlighted" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>"></div>
         <% @planning_view_months.each do |month| %>
-          <div class="planning-view__header--month" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>">
+          <div class="pvc-header__month" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>">
             <span><%= month[:name].html_safe %></span>
           </div>
         <% end %>
       </div>
-
-      <div class="planning-view__shadow planning-view__shadow-left"></div>
-      <div class="planning-view__shadow planning-view__shadow-right"></div>
+      <div class="pvc-shadow pvc-shadow_position_left"></div>
+      <div class="pvc-shadow pvc-shadow_position_right"></div>
     </div>
 
-
-    <div class="planning-view__header--control planning-view__header--control-right">
-      <a class="btn btn-default planning-view__ctrl-move-right"><i class="icon-forward"></i></a>
+    <div class="pvc-control pvc-control_action_move-right">
+      <a class="btn btn-default planning-view__ctrl-move-right">&gt;</a>
     </div>
 
-    <div class="planning-view__header--control planning-view__header--control-left">
-      <a class="btn btn-default planning-view__ctrl-move-left"><i class="icon-backward"></i></a>
+    <div class="pvc-control pvc-control_action_move-left">
+      <a class="btn btn-default planning-view__ctrl-move-left">&lt;</a>
     </div>
 
-    <div class="planning-view__header--control planning-view__header--control-zoom">
+    <div class="pvc-control pvc-control_action_zoom">
       <%= t('shared.planning.displayed_period') %>
       <div class="dropdown">
         <a data-target="#" href="#" data-toggle="dropdown" class="dropdown-toggle"><span><%= @planning_view_default_zoom %> <%= t('concepts.months') %></span> <b class="caret"></b></a>
@@ -41,28 +38,29 @@
     </div>
   </div>
 
-  <div class="planning-view__body">
+  <div class="pvc-body">
 
-    <div class="planning-view__row-container">
-      <div class="planning-view__row-wrapper planning-view__row-wrapper-vertical-bar">
-        <div class="planning-view__vertical-bar planning-view__vertical-bar-highlight" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>"></div>
+    <div class="pvc-scene">
+      <div class="pvc-scene__wrapper planning-view__row-wrapper-vertical-bar">
+        <div class="pvc-body__vbar pvc-body__vbar_type_highlight-bg" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>"></div>
+
         <% if @planning_view_name %>
-          <div class="planning-view__vertical-bar planning-view__vertical-bar-highlight-name" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>">
+          <div class="pvc-body__vbar pvc-body__vbar_type_highlight-title" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>">
             <span><%= @planning_view_name %></span>
           </div>
         <% end %>
 
         <% @planning_view_months.each do |month| %>
-          <div class="planning-view__vertical-bar planning-view__vertical-bar-<%= month[:date].month == 1 ? "year" : "month" %>" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>"></div>
+          <div class="pvc-body__vbar pvc-body__vbar_type_<%= month[:date].month == 1 ? "year" : "month" %>" style="<%= "left: #{month[:x]}%; width: #{month[:width]}%;" %>"></div>
         <% end %>
 
-        <div class="planning-view__vertical-bar planning-view__vertical-bar-today" style="<%= "left: #{@planning_view_marker_x}%;" %>">
+        <div class="pvc-body__vbar pvc-body__vbar_type_today" style="<%= "left: #{@planning_view_marker_x}%;" %>">
           <span><%= t('concepts.today') %></span>
         </div>
       </div>
 
-      <div class="planning-view__shadow planning-view__shadow-left"></div>
-      <div class="planning-view__shadow planning-view__shadow-right"></div>
+      <div class="pvc-shadow pvc-shadow_position_left"></div>
+      <div class="pvc-shadow pvc-shadow_position_right"></div>
     </div>
     <div>
 
@@ -83,8 +81,8 @@
 
           <%= content_tag :div, class: "planning-view__row #{'planning-view__row-expandable' if @planning_view_expandable}", data: @planning_view_row_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
 
-            <div class="planning-view__row-container">
-              <div class="planning-view__row-wrapper">
+            <div class="pvc-scene">
+              <div class="pvc-scene__wrapper">
                 <%
                    prev_timeslot_start_date = nil
                    prev_timeslot_end_date = nil
