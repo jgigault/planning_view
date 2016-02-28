@@ -90,13 +90,13 @@
                    prev_timeslot_end_date = nil
                    @planning_view_timeslots.each_with_index do |timeslot, timeslot_index|
                      timeslot_start_date = row.send(timeslot[:start_attribute])
-                     timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_view_margins_end_date
+                     timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_view_additional_time_end_date
 
                      if prev_timeslot_start_date != timeslot_start_date || prev_timeslot_end_date != timeslot_end_date
                        timeslot_nb_of_days = (timeslot_end_date - timeslot_start_date + 1).to_i
 
-                       timeslot_x = ((timeslot_start_date - @planning_view_margins_start_date + 1) * 100 / @planning_view_margins_nb_of_days).to_f
-                       timeslot_width = (timeslot_nb_of_days * 100 / @planning_view_margins_nb_of_days).to_f
+                       timeslot_x = ((timeslot_start_date - @planning_view_additional_time_start_date + 1) * 100 / @planning_view_additional_time_nb_of_days).to_f
+                       timeslot_width = (timeslot_nb_of_days * 100 / @planning_view_additional_time_nb_of_days).to_f
                 %>
                     <div class="<%= "planning-view__row--timeslot #{'unlimited' unless row.send(timeslot[:end_attribute])} #{row.planning_timeslot_class} #{"light" if timeslot_index > 0}" %>" style="<%= "left: #{timeslot_x}%; width: #{timeslot_width}%;" %>">
                       <% if timeslot[:milestones_method] %>

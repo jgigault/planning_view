@@ -31,9 +31,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', ['>= 3.0', '< 5.0']
   spec.add_dependency 'activesupport', ['>= 3.0', '< 6.0']
-  spec.add_dependency 'less-rails', '~> 2.2.0'
-  spec.add_dependency 'therubyracer', '~> 0.12.1'
-  spec.add_dependency 'twitter-bootstrap-rails'
+
+  spec.add_dependency 'sass-rails'
+  spec.add_dependency 'bootstrap-sass'
+  #spec.add_dependency 'therubyracer', '~> 0.12.1'
+  #spec.add_dependency 'twitter-bootstrap-rails'
   spec.add_dependency 'jquery-rails', '~> 2.1.0'
   #spec.add_dependency 'tilt', '~> 1.3'
 

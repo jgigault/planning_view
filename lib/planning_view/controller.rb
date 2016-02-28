@@ -48,8 +48,8 @@ module PlanningView
       @planning_view_months = []
 
       current_year = 0
-      month = @planning_view_start_date.beginning_of_month
-      while month < @planning_view_end_date do
+      month = @planning_view_additional_time_start_date.beginning_of_month
+      while month < @planning_view_additional_time_end_date do
         start_month_x = ((month - @planning_view_additional_time_start_date + 1) * 100 / @planning_view_additional_time_nb_of_days).to_f
 
         @planning_view_months << {

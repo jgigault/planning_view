@@ -106,8 +106,8 @@ planning_view_func_find_rule = (selector) ->
     if rules
       for r in rules
         if r.selectorText == selector
-          window.planning_view_wrapper_css_rule = r.style
-          break
+          return window.planning_view_wrapper_css_rule = r.style
+  return undefined
 
 planning_view_func_initialize_wrapper_css_rule = () ->
   selector = '#planning-view__container .planning-view__row-wrapper'

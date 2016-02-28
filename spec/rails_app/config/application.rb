@@ -1,6 +1,6 @@
 require 'action_controller/railtie'
-require 'less-rails'
-require 'twitter-bootstrap-rails'
+require 'sass-rails'
+require 'bootstrap-sass'
 require 'coffee-rails'
 require 'jquery-rails'
 require File.expand_path('../../../../lib/planning_view', __FILE__)

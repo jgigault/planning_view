@@ -1,11 +1,4 @@
-<%
-   row_milestones = row.milestones_for_planning
-%>
-<div class="planning-view__row--sidebar-left <%= 'phase-1' if row.late? %>">
-
-  <div class="pull-right" style="padding: 6px 5px 0 0;" rel="tooltip" title="<%= t("activerecord.attributes.budget.pipeline_savings#{Tenant.app_config('savings_calculation') == 2 ? '' : '_annualised'}") %>" data-placement="right">
-    <%= to_cur ConvertService.call(row.send("pipeline_savings#{Tenant.app_config('savings_calculation') == 2 ? '' : '_annualised'}_base"), @config_base_currency_id, @t_cur, row.action_plan.start_on) %>
-  </div>
+<div class="planning-view__row--sidebar-left">
 
   <div class="planning-view__row--sidebar-left--row">
     <strong><%= row.name %></strong>
@@ -15,38 +8,11 @@
     Line 2
   </div>
 
-  <div class="project__priority project__priority--<%= row.rag_status if Tenant.app_config('use_rag_status') %>" rel="tooltip" title="<%= rag_status_priority_tooltip(row.rag_status, row.priority) if Tenant.app_config('use_rag_status')%>" data-placement="right">
-    <% if Tenant.app_config('show_priority') %>
-      <i class="icon icon-white <%= %w[icon-dot icon-arrow-up icon-minus icon-arrow-down].at(row.priority || 0)%>"></i>
-    <% end %>
+  <div class="project__priority">
   </div>
 
 </div>
 <div class="planning-view__row--expandable-content">
 
-  <ul class="planning-view__breadcrumb">
-    <li style="width: <%= @status_width_for_expandable_content %>%;">
-      <span class="phase-white light">
-        <small><%= t('activerecord.attributes.budget.negotiation_start') %></small> <br />
-        <strong><%= row.negotiation_start %></strong>
-      </span>
-    </li>
-
-    <% row_milestones.each do |status| %>
-      <li style="width: <%= @status_width_for_expandable_content %>%;">
-        <span class="phase-<%= status[:phase_id] %> <%= "light" if row.status.id != status[:id] %>">
-          <small><%= status[:name] %></small><br />
-          <%= status[:date] || "---".html_safe %>
-        </span>
-      </li>
-    <% end %>
-
-    <li style="width: <%= @status_width_for_expandable_content %>%;">
-      <span class="phase-white light">
-        <small><%= t('activerecord.attributes.budget.negotiation_end') %></small><br />
-        <strong><%= row.negotiation_end %></strong>
-      </span>
-    </li>
-  </ul>
 
 </div>
