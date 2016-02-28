@@ -83,16 +83,14 @@ $planning_view_fixedheader_width_responsive: $container-tablet - 2px;
   @import "planning_view/pvc-body__vbar";
   @import "planning_view/pvc-scene";
   @import "planning_view/pvc-scene__wrapper";
+  @import "planning_view/pvc-list";
+  @import "planning_view/pvc-list__elem";
+  @import "planning_view/pvc-elem";
+  @import "planning_view/pvc-elem__content";
+  @import "planning_view/pvc-timeslot";
+  @import "planning_view/pvc-milestones";
+  @import "planning_view/pvc-milestones__elem";
   @import "planning_view/pvc-shadow";
   @import "planning_view/pvc-control";
 
-  // responsive utilities
-  @media (max-width: 979px) {
-    .pvc-header {
-      &.pvc-header_fixed {
-        top: 0;
-        width: $planning_view_fixedheader_width_responsive;
-      }
-    }
-  }
 }

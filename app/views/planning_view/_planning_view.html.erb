@@ -1,4 +1,4 @@
-<div id="PlanningViewContainer">
+<div id="PlanningViewContainer" data-header-fixed-position="<%= @planning_view_header_fixed_position %>">
 
   <div class="pvc-header">
 
@@ -41,7 +41,7 @@
   <div class="pvc-body">
 
     <div class="pvc-scene">
-      <div class="pvc-scene__wrapper planning-view__row-wrapper-vertical-bar">
+      <div class="pvc-scene__wrapper pvc-scene__wrapper_container_body">
         <div class="pvc-body__vbar pvc-body__vbar_type_highlight-bg" style="<%= "left: #{@planning_view_x}%; width: #{@planning_view_width}%;" %>"></div>
 
         <% if @planning_view_name %>
@@ -58,11 +58,11 @@
           <span><%= t('concepts.today') %></span>
         </div>
       </div>
-
       <div class="pvc-shadow pvc-shadow_position_left"></div>
       <div class="pvc-shadow pvc-shadow_position_right"></div>
     </div>
-    <div>
+
+    <div class="pvc-list">
 
       <%
          if @collection.size > 0
@@ -72,37 +72,38 @@
 
              if @planning_view_group_by != nil && prev_group_by_id != row.send(@planning_view_group_by).id
       %>
-            <div class="planning-view__row planning-view__row-head">
+            <div class="pvc-list__elem pvc-list__elem_type_head">
               <%= row.send(@planning_view_group_by) %>
             </div>
           <%
              end
           %>
 
-          <%= content_tag :div, class: "planning-view__row #{'planning-view__row-expandable' if @planning_view_expandable}", data: @planning_view_row_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
+          <%= content_tag :div, class: "pvc-list__elem pvc-elem #{'pvc-elem_type_expandable' if @planning_view_expandable}", data: @planning_view_row_data_attributes.each_with_object(Hash.new(0)) { |attr, h| h[attr[0]] = row.send(attr[1]) } do %>
 
             <div class="pvc-scene">
               <div class="pvc-scene__wrapper">
                 <%
                    prev_timeslot_start_date = nil
                    prev_timeslot_end_date = nil
-                   @planning_view_timeslots.each_with_index do |timeslot, timeslot_index|
-                     timeslot_start_date = row.send(timeslot[:start_attribute])
+                   @planning_view_timeslots.each do |timeslot|
+                     timeslot_start_date = row.send(timeslot[:start_attribute]) || @planning_view_additional_time_start_date
                      timeslot_end_date = row.send(timeslot[:end_attribute]) || @planning_view_additional_time_end_date
 
-                     if prev_timeslot_start_date != timeslot_start_date || prev_timeslot_end_date != timeslot_end_date
+                     if timeslot[:visible] == true || prev_timeslot_start_date != timeslot_start_date || prev_timeslot_end_date != timeslot_end_date
+                       milestones = row.send(timeslot[:milestones_method]) if timeslot[:milestones_method]
                        timeslot_nb_of_days = (timeslot_end_date - timeslot_start_date + 1).to_i
 
                        timeslot_x = ((timeslot_start_date - @planning_view_additional_time_start_date + 1) * 100 / @planning_view_additional_time_nb_of_days).to_f
                        timeslot_width = (timeslot_nb_of_days * 100 / @planning_view_additional_time_nb_of_days).to_f
                 %>
-                    <div class="<%= "planning-view__row--timeslot #{'unlimited' unless row.send(timeslot[:end_attribute])} #{row.planning_timeslot_class} #{"light" if timeslot_index > 0}" %>" style="<%= "left: #{timeslot_x}%; width: #{timeslot_width}%;" %>">
-                      <% if timeslot[:milestones_method] %>
-                        <div class="planning-view__row--milestones">
+                    <div class="<%= "pvc-timeslot #{'pvc-timeslot_not-starting' unless row.send(timeslot[:start_attribute])} #{'pvc-timeslot_not-ending' unless row.send(timeslot[:end_attribute])} #{row.try(timeslot[:class_attribute]) if timeslot[:class_attribute]} #{timeslot[:additional_class] if timeslot[:additional_class]}" %>" style="<%= "left: #{timeslot_x}%; width: #{timeslot_width}%;" %>">
+                      <% if milestones %>
+                        <div class="pvc-milestones">
                           <%
                              overlays_count = 0
                              prev_milestone = nil
-                             row.send(timeslot[:milestones_method]).each do |m|
+                             milestones.each do |m|
                                if m[:date]
                                  if prev_milestone && m[:date] == prev_milestone[:date]
                                    overlays_count += 1
@@ -111,7 +112,7 @@
                                  end
                                  m_x = ((m[:date] - timeslot_start_date) * 100 / timeslot_nb_of_days).to_f
                           %>
-                              <div class="planning-view__row--milestones-item" style="<%= "left: #{m_x}%;#{"margin-top: #{overlays_count * 2}px;margin-left: #{overlays_count * 2}px;z-index: #{200 + overlays_count};" if overlays_count > 0}" %>">
+                              <div class="pvc-milestones__elem" style="<%= "left: #{m_x}%;#{"margin-top: #{overlays_count * 2}px;margin-left: #{overlays_count * 2}px;z-index: #{200 + overlays_count};" if overlays_count > 0}" %>">
                                 <%= m[:html_content].html_safe %>
                               </div>
                           <%

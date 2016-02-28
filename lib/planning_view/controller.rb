@@ -18,7 +18,8 @@ module PlanningView
                                         group_by: nil,
                                   highlight_name: nil,
                                       expandable: false,
-                             row_data_attributes: {})
+                             row_data_attributes: {},
+                           header_fixed_position: 0)
 
       raise NoCollectionError if @collection == nil
       raise EndDateBeforeOrEqualToStartDateError if end_date <= start_date
@@ -44,6 +45,8 @@ module PlanningView
       @planning_view_width = (@planning_view_nb_of_days * 100 / @planning_view_additional_time_nb_of_days).to_f
       @planning_view_x = ((start_date - @planning_view_additional_time_start_date + 1) * 100 / @planning_view_additional_time_nb_of_days).to_f
       @planning_view_marker_x = ((@planning_view_marker_date - @planning_view_additional_time_start_date + 1) * 100 / @planning_view_additional_time_nb_of_days).to_f
+
+      @planning_view_header_fixed_position = header_fixed_position
 
       @planning_view_months = []
 

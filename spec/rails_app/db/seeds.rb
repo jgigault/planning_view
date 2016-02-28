@@ -7,4 +7,4 @@ Project.create name: 'Project 2', category: c1
 Project.create name: 'Project 3', category: c1
 Project.create name: 'Project 4', category: c1
 Project.create name: 'Project 5', category: c1
-Project.create name: 'Project 6', category: c1
+Project.create name: 'Project 6', category: c1, negotiation_start: Date.today - 3.months, negotiation_end: Date.today + 1.month + 15.days

@@ -12,7 +12,9 @@
     .btn {
       padding: 10px 15px;
       border-radius: 50%;
-      @include box-shadow(0 0 3px 0 #AAAAAA);
+
+      -webkit-box-shadow: 0 0 3px 0 #AAAAAA;
+      box-shadow: 0 0 3px 0 #AAAAAA;
     }
 
     &:hover {
@@ -22,10 +24,18 @@
 
   &.pvc-control_action_move-right {
     right: -23px;
+
+    @media (max-width: 767px) {
+      right: 0px;
+    }
   }
 
   &.pvc-control_action_move-left {
     left: $planning_view_leftside_width - 23px;
+
+    @media (max-width: 767px) {
+      left: 0px;
+    }
   }
 
   &.pvc-control_action_zoom {

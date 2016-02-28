@@ -5,17 +5,21 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   //#gradient > .vertical(#F8F8F8, #E8E8E8);
+  background-color: #EFEFEF;
 
-  &.pvc-header_fixed {
-    position: fixed;
-    top: 77px;
-    width: $planning_view_fixedheader_width;
-    z-index: 600;
-    @include box-shadow( 0px 3px 3px 0 rgba(0,0,0,.2));
-    border-bottom: 1px solid #afafaf;
-    border-top: 0;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+  @media (min-width: 768px) {
+    &.pvc-header_fixed {
+      position: fixed;
+      top: 0;
+      width: auto;
+      z-index: 600;
+      border-bottom: 1px solid #afafaf;
+      border-top: 0;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+
+      -webkit-box-shadow: 0px 3px 3px 0 rgba(0,0,0,.2);
+      box-shadow: 0px 3px 3px 0 rgba(0,0,0,.2);
+    }
   }
-
 }

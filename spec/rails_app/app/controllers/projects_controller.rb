@@ -12,9 +12,9 @@ class ProjectsController < ApplicationController
   attr_accessor :additional_time_after
 
   def planning
-    @collection = Project.all unless disable_collection
+    @collection = Project.all.order(:category_id) unless disable_collection
 
-    params = {}
+    params = {group_by: :category, expandable: true, timeslots: [{end_attribute: :negotiation_end, start_attribute: :negotiation_start}, {end_attribute: :negotiation_end, start_attribute: :negotiation_start, visible: true}]}
     params[:start_date] = start_date if start_date
     params[:end_date] = end_date if end_date
     params[:additional_time_before] = additional_time_before if additional_time_before

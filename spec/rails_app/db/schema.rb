@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
-    t.datetime "negotiation_start"
-    t.datetime "negotiation_end"
+    t.date "negotiation_start"
+    t.date "negotiation_end"
   end
 
 end

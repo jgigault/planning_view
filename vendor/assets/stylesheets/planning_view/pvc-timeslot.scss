@@ -1,0 +1,45 @@
+.pvc-timeslot {
+  position: absolute;
+  left: 0;
+  height: $planning_view_timeslot_height;
+  min-width: 20px;
+  border: 1px solid rgba(102, 153, 170, .8);
+  border-radius: 3px;
+  text-align: center;
+  transition: all .2s ease-out;
+  z-index: 200;
+  background-color: #FFFFFF;
+
+  -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .2);
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .2);
+
+  &.pvc-timeslot_not-ending {
+    border-right: 2px dotted #000;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.pvc-timeslot_not-starting {
+    border-left: 2px dotted #000;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:last-child {
+    z-index: 204;
+    top: (($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2) + ($planning_view_timeslot_height / 2);
+
+    // it should be in 'additional_class'
+    //opacity: .7;
+  }
+
+  &:first-child {
+    z-index: 205;
+    top: (($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2) - ($planning_view_timeslot_height / 2);
+    opacity: 1;
+
+    &:last-child {
+      top: ($planning_view_row_height - ($planning_view_timeslot_height + 2)) / 2;
+    }
+  }
+}
