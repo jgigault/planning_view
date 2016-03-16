@@ -1,4 +1,4 @@
-# PlanningView
+# PlanningView [Work In Progress]
 
 <img src="http://i.imgur.com/XuoqqUs.png">
 
