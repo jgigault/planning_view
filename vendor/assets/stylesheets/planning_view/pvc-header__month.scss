@@ -1,0 +1,47 @@
+.pvc-header__month {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: $planning_view_header_height;
+  line-height: $planning_view_header_height;
+  border-left: 1px solid #D1D1D1;
+  text-align:center;
+  overflow: hidden;
+  transition: all 0.5s ease-out;
+
+  > span {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: ($planning_view_header_height - 10) / 2;
+  }
+
+  &.pvc-header__month_vertical {
+
+    > span {
+      -webkit-transform: rotateZ(-90deg);
+      transform: rotateZ(-90deg);
+      line-height: 12px;
+      display: block;
+      margin-top: $planning_view_header_height / 2;
+
+      > span {
+        &:first-child {
+          display: none;
+        }
+
+        &:last-child {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &:first-child {
+    border-left: 0;
+  }
+
+  &.pvc-header__month_highlighted {
+    //#gradient > .vertical(#F1F1F1, #D1D1D1);
+    background-color: #FFFFFF;
+  }
+}

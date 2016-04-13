@@ -1,0 +1,13 @@
+.pvc-body {
+  position: relative;
+  border: 1px solid #dedede;
+  overflow: hidden;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  @media (min-width: 768px) {
+    &.pvc-body_alone {
+      margin-top: $planning_view_header_height;
+    }
+  }
+}

@@ -4,15 +4,15 @@
 $(document).ready ->
 
   #do stuff only on planning views
-  if $('#planning-view__container').length
+  if $('#PlanningViewContainer').length
 
     #START GLOBAL VARIABLES
     #
     #
     window.planning_view_global_y_limit = 0         #vertical scroll position for the floating header
     window.planning_view_global_ctrl_locker = false #keydown status to prevent from repeating control key
-    window.planning_view_wrapper_css_rule = undefined
-    planning_view_func_initialize_wrapper_css_rule()
+    window.planning_view_wrapper_css_rule = planning_view_func_initialize_css_rule('#PlanningViewContainer .pvc-scene__wrapper')
+    window.planning_view_header_fixed_css_rule = planning_view_func_initialize_css_rule('#PlanningViewContainer .pvc-header_fixed')
     #
     #
     #END GLOBAL VARIABLES
@@ -31,19 +31,19 @@ $(document).ready ->
       $(document).bind 'keydown', planning_view_func_shortcuts
 
     #  control buttons
-    $(document).on 'click', '.planning-view__ctrl-move-left', (e) ->
+    $(document).on 'click', '#PlanningViewContainer .pvc-control_action_move-left a', (e) ->
       e.preventDefault()
       planning_view_func_move_x 10
-    $(document).on 'click', '.planning-view__ctrl-move-right', (e) ->
+    $(document).on 'click', '#PlanningViewContainer .pvc-control_action_move-right a', (e) ->
       e.preventDefault()
       planning_view_func_move_x(-10);
-    $(document).on 'click', '.planning-view__ctrl-move-zoom', (e) ->
+    $(document).on 'click', '#PlanningViewContainer .pvc-control_action_zoom li a', (e) ->
       e.preventDefault()
       planning_view_func_zoom $(this).data('zoom')
 
     #  expandable rows
-    $('.planning-view__row-expandable .planning-view__row-container').on 'click', (e) ->
-      $(this).parent().toggleClass 'open'
+    $('#PlanningViewContainer .pvc-elem_type_expandable .pvc-scene').on 'click', (e) ->
+      $(this).parent().toggleClass 'pvc-elem_expanded'
     #
     #
     #END INTERACTIVE
@@ -52,13 +52,14 @@ $(document).ready ->
     #
     #
     #  initialize global variables
-    window.planning_view_global_y_limit = $('#planning-view__container').offset().top - 79
+    window.planning_view_header_fixed_css_rule['margin-top'] = $('#PlanningViewContainer').data('header-fixed-position') + 'px'
+    window.planning_view_global_y_limit = $('#PlanningViewContainer').offset().top - parseInt(window.planning_view_header_fixed_css_rule['margin-top'])
 
     #  default zoom
-    planning_view_func_zoom $(".planning-view__header--control-zoom li.active a").data('zoom')
+    planning_view_func_zoom $("#PlanningViewContainer .pvc-control_action_zoom li.active a").data('zoom')
 
     #  bind scroll to update header position
-    $(window).bind 'scroll', planning_view_func_update_header
+    $(window).bind 'scroll resize', planning_view_func_update_header
     planning_view_func_update_header()
     #
     #
@@ -75,13 +76,14 @@ $(document).ready ->
 planning_view_func_update_header = (e) ->
   y = $(window).scrollTop()
   if y > window.planning_view_global_y_limit
-    if !$('.planning-view__header').hasClass 'planning-view__header--fixed'
-      $('.planning-view__header').addClass 'planning-view__header--fixed'
-      $('.planning-view__body').addClass 'planning-view__body--alone'
+    $('#PlanningViewContainer .pvc-header').css('width', $('#PlanningViewContainer').width());
+    if !$('#PlanningViewContainer .pvc-header').hasClass 'pvc-header_fixed'
+      $('#PlanningViewContainer .pvc-header').addClass 'pvc-header_fixed'
+      $('#PlanningViewContainer .pvc-body').addClass 'pvc-body_alone'
   else
-    if $('.planning-view__header').hasClass 'planning-view__header--fixed'
-      $('.planning-view__header').removeClass 'planning-view__header--fixed'
-      $('.planning-view__body').removeClass 'planning-view__body--alone'
+    if $('#PlanningViewContainer .pvc-header').hasClass 'pvc-header_fixed'
+      $('#PlanningViewContainer .pvc-header').removeClass 'pvc-header_fixed'
+      $('#PlanningViewContainer .pvc-body').removeClass 'pvc-body_alone'
 
 #  manage keyboard shortcuts
 planning_view_func_shortcuts = (e) ->
@@ -106,14 +108,13 @@ planning_view_func_find_rule = (selector) ->
     if rules
       for r in rules
         if r.selectorText == selector
-          window.planning_view_wrapper_css_rule = r.style
-          break
+          return r.style
+  return undefined
 
-planning_view_func_initialize_wrapper_css_rule = () ->
-  selector = '#planning-view__container .planning-view__row-wrapper'
-  window.planning_view_wrapper_css_rule = planning_view_func_find_rule(selector)
-  if window.planning_view_wrapper_css_rule == undefined
-    css = "#{selector} { margin-left: 0%; #{style}: #{value} }"
+planning_view_func_initialize_css_rule = (selector) ->
+  css_rule = planning_view_func_find_rule(selector)
+  if css_rule == undefined
+    css = "#{selector} { }"
     head = document.head || document.getElementsByTagName('head')[0]
     style_node = document.createElement 'style'
     style_node.type = 'text/css'
@@ -123,14 +124,14 @@ planning_view_func_initialize_wrapper_css_rule = () ->
     else
       style_node.appendChild(document.createTextNode css)
     head.appendChild(style_node)
-    window.planning_view_wrapper_css_rule = planning_view_func_find_rule(selector)
+    css_rule = planning_view_func_find_rule(selector)
+  return css_rule
 
 window.planning_view_func_wrapper_property = (property, value = undefined) ->
   if value == undefined
     return window.planning_view_wrapper_css_rule[property]
   else
     return window.planning_view_wrapper_css_rule[property] = value
-  #return CCSStylesheetRuleStyle2 'pa-planning-cssRules', '#planning-view__container .planning-view__row-wrapper', property, value
 
 #  move left or right the wrappers
 window.planning_view_func_move_x = (delta) ->
@@ -152,7 +153,7 @@ window.planning_view_func_move_x = (delta) ->
 
 # zoom control
 window.planning_view_func_zoom = (zoom) ->
-  dropdown = $('.planning-view__header--control-zoom')
+  dropdown = $('#PlanningViewContainer .pvc-control_action_zoom')
   el = dropdown.find('a[data-zoom=' + zoom + ']')
   dropdown.find('li').removeClass('active')
   dropdown.find('a[data-toggle=dropdown] span').html(el.html())
@@ -165,9 +166,9 @@ window.planning_view_func_zoom = (zoom) ->
     planning_view_func_wrapper_property 'width', new_width + '%'
     planning_view_func_move_x -(old_margin_left - new_margin_left)
     if parseInt(el.data('nb-of-months')) > 30
-      $('.planning-view__header--month').addClass('vertical');
+      $('#PlanningViewContainer .pvc-header__month').addClass('pvc-header__month_vertical');
     else
-      $('.planning-view__header--month').removeClass('vertical');
+      $('#PlanningViewContainer .pvc-header__month').removeClass('pvc-header__month_vertical');
 #
 #
 #END UTILITY FUNCTIONS

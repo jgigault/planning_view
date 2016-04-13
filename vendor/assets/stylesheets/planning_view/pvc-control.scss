@@ -1,0 +1,51 @@
+.pvc-control {
+  position: absolute;
+  top: 0;
+  height: $planning_view_header_height;
+  line-height: $planning_view_header_height;
+
+  &.pvc-control_action_move-right,
+  &.pvc-control_action_move-left {
+    opacity: 1;
+    z-index: 710;
+
+    .btn {
+      padding: 10px 15px;
+      border-radius: 50%;
+
+      -webkit-box-shadow: 0 0 3px 0 #AAAAAA;
+      box-shadow: 0 0 3px 0 #AAAAAA;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.pvc-control_action_move-right {
+    right: -23px;
+
+    @media (max-width: 767px) {
+      right: 0px;
+    }
+  }
+
+  &.pvc-control_action_move-left {
+    left: $planning_view_leftside_width - 23px;
+
+    @media (max-width: 767px) {
+      left: 0px;
+    }
+  }
+
+  &.pvc-control_action_zoom {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    line-height: 20px;
+
+    .dropdown {
+      display: inline;
+    }
+  }
+}

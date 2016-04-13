@@ -1,0 +1,24 @@
+.pvc-elem {
+  position: relative;
+
+  &.pvc-elem_type_expandable {
+    .pvc-scene {
+      cursor: pointer;
+    }
+  }
+
+  &.pvc-elem_expanded {
+    height: $planning_view_row_height + $planning_view_row_expandable_content_height;
+    border-bottom: 1px solid #aaaaaa;
+    border-top: 1px solid #aaaaaa;
+    z-index: 315;
+
+    -webkit-box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, .2);
+
+    .pvc-elem__content_type_expandable {
+      display: block;
+    }
+  }
+
+}

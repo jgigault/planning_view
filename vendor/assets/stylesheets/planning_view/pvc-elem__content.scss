@@ -1,0 +1,25 @@
+.pvc-elem__content {
+  position: relative;
+  width: $planning_view_leftside_width;
+  height: $planning_view_row_height;
+  background-color: #FFFFFF;
+  //border: 1px solid #CCC;
+  border-left: 0;
+  border-top: 0;
+  transition: all .2s ease-out;
+
+
+  &.pvc-elem__content_type_expandable {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: $planning_view_row_expandable_content_height;
+    bottom: 0;
+    display: none;
+    overflow: hidden;
+
+    border-top: 1px dotted #CCCCCC;
+    background-color: #FFFFFF;
+  }
+}

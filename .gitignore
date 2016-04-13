@@ -9,3 +9,7 @@
 /tmp/
 /.idea/
 Gemfile.lock
+.env
+log/
+tmp/
+/spec/rails_app/db/development.sqlite3

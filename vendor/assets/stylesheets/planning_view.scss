@@ -1,0 +1,96 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+//@import "bootstrap_and_overrides_variables";
+
+
+
+//                     _
+//                    | |
+//  _ __ ___  __ _  __| |_ __ ___   ___
+// | '__/ _ \/ _` |/ _` | '_ ` _ \ / _ \
+// | | |  __/ (_| | (_| | | | | | |  __/
+// |_|  \___|\__,_|\__,_|_| |_| |_|\___|
+//
+//
+/*
+
+  This file serves the planning view.
+  It has 3 sections:
+
+  - variables
+    Feel free to change these values
+
+  - base
+    The base rules of the planning view
+    Be aware about what you do
+
+  - custom
+    Append your own rules to customize the view of one specific model
+    e.g. for Negotiation -> body#negotiations { ...your own rules... }
+
+*/
+
+
+
+//                  _       _     _
+//                 (_)     | |   | |
+// __   ____ _ _ __ _  __ _| |__ | | ___  ___
+// \ \ / / _` | '__| |/ _` | '_ \| |/ _ \/ __|
+//  \ V / (_| | |  | | (_| | |_) | |  __/\__ \
+//   \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
+//
+// Feel free to change these values
+
+// width and height of the planning main elements
+$planning_view_header_height:                 50px;
+$planning_view_row_height:                    60px;
+$planning_view_row_expandable_content_height: 65px;
+$planning_view_timeslot_height:               16px;
+$planning_view_leftside_width:                330px;
+
+
+
+
+//  _
+// | |
+// | |__   __ _ ___  ___
+// | '_ \ / _` / __|/ _ \
+// | |_) | (_| \__ \  __/
+// |_.__/ \__,_|___/\___|
+//
+// Do not change these CSS rule if you don't know what you do :-)
+
+// default zoom: this value is automatically overridden with JavaScript, depending on the :default_zoom param in PlanningsHelper.rb
+$planning_view_default_zoom: 1680%;
+
+// planning header width: substract 2 because of borders left and right, 1px width each
+$planning_view_fixedheader_width: $container-large-desktop - 2px;
+$planning_view_fixedheader_width_responsive: $container-tablet - 2px;
+
+
+
+#PlanningViewContainer {
+  position :relative;
+  margin-bottom: 20px;
+  background-color: #FFFFFF;
+
+  // to fix body_alone and margin-top...
+  border-top: 1px solid #000;
+
+  @import "planning_view/pvc-header";
+  @import "planning_view/pvc-header__month";
+  @import "planning_view/pvc-body";
+  @import "planning_view/pvc-body__vbar";
+  @import "planning_view/pvc-scene";
+  @import "planning_view/pvc-scene__wrapper";
+  @import "planning_view/pvc-list";
+  @import "planning_view/pvc-list__elem";
+  @import "planning_view/pvc-elem";
+  @import "planning_view/pvc-elem__content";
+  @import "planning_view/pvc-timeslot";
+  @import "planning_view/pvc-milestones";
+  @import "planning_view/pvc-milestones__elem";
+  @import "planning_view/pvc-shadow";
+  @import "planning_view/pvc-control";
+
+}
